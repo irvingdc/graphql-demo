@@ -1,0 +1,58 @@
+--- QUERY ---
+
+query{
+	user {
+		id
+	  	firstName
+	  	company {
+	    	name
+	  	}
+	}	
+}
+
+--- USAGE OF FRAGMENTS ---
+
+query{
+	c1: company(id: "1"){
+		...companyDetails
+	  }
+	  c2: company(id: "2"){
+	    ...companyDetails
+	  }
+}
+fragment companyDetails on Company {
+	id
+	name
+	description
+	users {
+		firstName
+	}
+}
+
+--- MUTATION (ADD) ---
+
+mutation {
+	addUser(firstName: "Stephen", age: 26){
+		id
+		firstName
+		age
+	} 
+}
+
+--- MUTATION (DELETE) ---
+
+mutation {
+	deleteUser(id: "23"){
+	    id
+	}
+}
+
+--- MUTATION (EDIT) ---
+
+mutation {
+	editUser(id:"40", age: 1){
+    id
+    firstName,
+    age
+  }
+}
